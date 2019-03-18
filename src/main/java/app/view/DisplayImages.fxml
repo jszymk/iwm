@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="578.0" prefWidth="927.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="app.controller.DisplayImagesController">
+   <children>
+      <HBox alignment="CENTER" layoutX="310.0" layoutY="141.0" prefHeight="578.0" prefWidth="927.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fx:id="inputImage" fitHeight="263.0" fitWidth="265.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="sinogram" fitHeight="263.0" fitWidth="265.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="outputImage" fitHeight="263.0" fitWidth="265.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
