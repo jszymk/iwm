@@ -1,18 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="578.0" prefWidth="927.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="app.controller.DisplayImagesController">
+<AnchorPane id="AnchorPane" prefHeight="808.0" prefWidth="1332.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.DisplayImagesController">
    <children>
-      <HBox alignment="CENTER" layoutX="310.0" layoutY="141.0" prefHeight="578.0" prefWidth="927.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox prefHeight="776.0" prefWidth="1234.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ImageView fx:id="inputImage" fitHeight="263.0" fitWidth="265.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="sinogram" fitHeight="263.0" fitWidth="265.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="outputImage" fitHeight="263.0" fitWidth="265.0" pickOnBounds="true" preserveRatio="true" />
+            <HBox alignment="CENTER" prefHeight="850.0" prefWidth="1328.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="776.0" prefWidth="385.0">
+                     <children>
+                        <ImageView fx:id="inputImage" fitHeight="425.0" fitWidth="425.0" pickOnBounds="true" preserveRatio="true">
+                           <VBox.margin>
+                              <Insets top="65.0" />
+                           </VBox.margin>
+                        </ImageView>
+                        <Label text="Input image" />
+                     </children>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <ProgressIndicator fx:id="progressCircle1" prefHeight="65.0" prefWidth="261.0" />
+                        <ImageView fx:id="sinograph" fitHeight="425.0" fitWidth="425.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label text="Sinograph" />
+                     </children>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <ProgressIndicator fx:id="progressCircle2" prefHeight="65.0" prefWidth="261.0" />
+                        <ImageView fx:id="outputImage" fitHeight="425.0" fitWidth="425.0" pickOnBounds="true" preserveRatio="true">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </ImageView>
+                        <Label text="Output" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
          </children>
-      </HBox>
+      </VBox>
    </children>
 </AnchorPane>

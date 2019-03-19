@@ -6,6 +6,8 @@
 package app.controller;
 
 import app.Application;
+import app.conversion.RadonTransform;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -22,6 +24,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javax.imageio.ImageIO;
 
 /**
  * FXML Controller class
@@ -55,12 +58,9 @@ public class MainViewConroller implements Initializable {
         //Show open file dialog
         File file = fileChooser.showOpenDialog(null);
 
-        try {
-            this.app.setInputImage(new Image(file.toURI().toURL().toExternalForm()));
+        if (file != null) {
+            this.app.setInputImage(file);
             showImages();
-            //imageViewOriginal.setImage(image);
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(MainViewConroller.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -89,7 +89,7 @@ public class MainViewConroller implements Initializable {
             FXMLLoader loader = new FXMLLoader();
             URL url = Paths.get("src/main/java/app/view/Settings.fxml").toUri().toURL();
             loader.setLocation(url);
-         
+
             AnchorPane settings = loader.load();
 
             Stage settingsStage = new Stage();
@@ -101,9 +101,8 @@ public class MainViewConroller implements Initializable {
             settingsStage.setScene(scene);
 
             SettingsController controller = loader.getController();
-            
+
             controller.setSettingStage(settingsStage);
-            //controller.setIrc(irc);*/
 
             settingsStage.showAndWait();
 

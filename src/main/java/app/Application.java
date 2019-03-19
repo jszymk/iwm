@@ -20,15 +20,23 @@ import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
 
+
+// maska -1 3 -1
 public class Application extends javafx.application.Application {
    
-    private Image inputImage;
+    private File inputImage;
+    private Image sinImage;
+    
     private Stage primaryStage;
     private BorderPane rootLayout;
 
-    //public static FXMLLoader loader = new FXMLLoader();
+    public static FXMLLoader loader = new FXMLLoader();
+    
     public static void main(String[] args) throws Exception {
-        File input_file = new File("inp.jpg");
+        launch(args);
+        
+        
+        /*File input_file = new File("inp.jpg");
 
         BufferedImage image = ImageIO.read(input_file);
 
@@ -40,9 +48,9 @@ public class Application extends javafx.application.Application {
         BufferedImage out = new InverseRadonTransform(400, 90, 0.5).transform(sin, 5);
 
         f = new File("out.jpg");
-        ImageIO.write(out, "jpg", f);
+        ImageIO.write(out, "jpg", f);*/
 
-        launch(args);
+        
     }
 
     @Override
@@ -52,15 +60,13 @@ public class Application extends javafx.application.Application {
         this.primaryStage.setTitle("IWM");
 
         initRootLayout();
-        //showImages();
-
         primaryStage.show();
 
     }
 
     public void initRootLayout() {
         try {
-            FXMLLoader loader = new FXMLLoader();
+            
             URL url = Paths.get("src/main/java/app/view/MainView.fxml").toUri().toURL();
             loader.setLocation(url);
 
@@ -82,11 +88,11 @@ public class Application extends javafx.application.Application {
 
   
 
-    public Image getInputImage() {
+    public File getInputImage() {
         return inputImage;
     }
 
-    public void setInputImage(Image inputImage) {
+    public void setInputImage(File inputImage) {
         this.inputImage = inputImage;
     }
 
@@ -105,11 +111,14 @@ public class Application extends javafx.application.Application {
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
-    
-    
-    
-    
-    
+
+    public Image getSinImage() {
+        return sinImage;
+    }
+
+    public void setSinImage(Image sinImage) {
+        this.sinImage = sinImage;
+    }
     
     
 
