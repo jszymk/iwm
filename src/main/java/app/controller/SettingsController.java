@@ -39,11 +39,19 @@ public class SettingsController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+    }
+        //System.out.println(this.app.getAlfa());
+        //alfa.setText(String.valueOf(this.app.getAlfa()));
         // TODO
-    }    
+       
     
     public void setMain(Application app){
         this.app = app;
+        
+        alfa.setText(String.valueOf(this.app.getAlfa()));
+        l.setText(String.valueOf(this.app.getL()));
+        n.setText(String.valueOf(this.app.getN()));
     }
     
     

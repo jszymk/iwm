@@ -33,9 +33,9 @@ public class Application extends javafx.application.Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
     
-    private double alfa;
-    private int n;
-    private double l;
+    private Double alfa = 0.5;
+    private int n = 200;
+    private Double l = 90.0;
 
     public static FXMLLoader loader = new FXMLLoader();
     
@@ -140,11 +140,11 @@ public class Application extends javafx.application.Application {
         this.sinImage = sinImage;
     }
 
-    public double getAlfa() {
+    public Double getAlfa() {
         return alfa;
     }
 
-    public void setAlfa(double alfa) {
+    public void setAlfa(Double alfa) {
         this.alfa = alfa;
     }
 
