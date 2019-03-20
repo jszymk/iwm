@@ -86,7 +86,7 @@ public class DisplayImagesController implements Initializable {
                 sinograph.setImage(new Image(f.toURI().toURL().toExternalForm()));
 
                 progressCircle2.setVisible(true);
-                BufferedImage out = new InverseRadonTransform(400, 90, 0.5).transform(sin, 5);
+                BufferedImage out = new InverseRadonTransform(400, 90, 0.5).transform(sin, 5).get(0);
 
                 f = new File("out.jpg");
                 ImageIO.write(out, "jpg", f);

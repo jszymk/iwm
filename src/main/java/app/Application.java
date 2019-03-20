@@ -34,23 +34,6 @@ public class Application extends javafx.application.Application {
     
     public static void main(String[] args) throws Exception {
         launch(args);
-        
-        
-        /*File input_file = new File("inp.jpg");
-
-        BufferedImage image = ImageIO.read(input_file);
-
-        BufferedImage sin = new RadonTransform(400, 90, 0.5).transform(image);
-
-        File f = new File("sin.jpg");
-        ImageIO.write(sin, "jpg", f);
-
-        BufferedImage out = new InverseRadonTransform(400, 90, 0.5).transform(sin, 5);
-
-        f = new File("out.jpg");
-        ImageIO.write(out, "jpg", f);*/
-
-        
     }
 
     @Override

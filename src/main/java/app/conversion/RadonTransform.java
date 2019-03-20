@@ -28,6 +28,7 @@ public class RadonTransform {
 
         double r = input.getHeight()*Math.sqrt(2)/2;
         double h = 2*r*Math.sin(l/2)/n;
+        double dB = l/n;
 
         int sW = (int)(PI/dalpha);
         int sH = n;
@@ -38,7 +39,7 @@ public class RadonTransform {
             double slope = Math.tan(alpha);
             for(int y = 0; y < sH; ++y) {
                 double beta = (sH/2-y);
-                double intercept = h*beta/Math.cos(alpha) + input.getHeight()/2 - slope*input.getHeight()/2;
+                double intercept = r*Math.sin(beta*dB)/Math.cos(alpha) + input.getHeight()/2 - slope*input.getHeight()/2;
                 double avg = Bresenham.gen(slope, intercept, input.getHeight())
                         .filter(p -> p.x > 0 && p.x < input.getWidth() && p.y > 0 && p.y < input.getHeight())
                         .mapToInt(p -> {

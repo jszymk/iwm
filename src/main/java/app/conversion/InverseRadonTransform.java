@@ -6,7 +6,9 @@ import app.utils.Utils;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static java.lang.Math.PI;
 
@@ -22,11 +24,12 @@ public class InverseRadonTransform {
         this.l = l*PI/180.0;
     }
 
-    public BufferedImage transform(BufferedImage input, int iter) throws IOException {
+    public List<BufferedImage> transform(BufferedImage input, int iter) throws IOException {
 
         int size = 512;
 
         double r = input.getHeight()*Math.sqrt(2)/2;
+        double dB = l/n;
         double h = 2*r*Math.sin(l/2)/n;
 
         int sW = (int)(PI/dalpha);
@@ -38,13 +41,17 @@ public class InverseRadonTransform {
                 transform[i][j] = new Pixel();
             }
         }
+
+        List<BufferedImage> output = new ArrayList<>();
+
         for(int i = 0; i<iter; ++i) {
+            BufferedImage curIter = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);
             for(int x = 0; x < sW; ++x) {
                 double alpha = x*dalpha;
                 double slope = Math.tan(alpha);
                 for(int y = 0; y < sH; ++y) {
                     double beta = (sH/2-y);
-                    double intercept = h*beta/Math.cos(alpha) + size/2 - slope*size/2;
+                    double intercept = r*Math.sin(beta*dB)/Math.cos(alpha) + size/2 - slope*size/2;
 
                     int rgb = input.getRGB(x, y);
                     int R = (rgb>>16)&0xff;
@@ -60,17 +67,15 @@ public class InverseRadonTransform {
                             });
                 }
             }
+            double maxValue = Arrays.stream(transform).flatMapToDouble(arr -> Arrays.stream(arr).filter(p -> p.n > 0).mapToDouble(p -> p.val)).max().orElse(0);
+            int[][] normalized = Arrays.stream(transform).map(arr -> Arrays.stream(arr).mapToInt(val -> (int)(val.val*255/maxValue)).toArray()).toArray(int[][]::new);
+            Utils.get2DStream(size, size).forEach(p -> {
+                int norm = normalized[p.x][p.y];
+                int px = norm | norm<<8 | norm<<16;
+                curIter.setRGB(p.x, p.y, px);
+            });
+            output.add(curIter);
         }
-
-        BufferedImage output = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);
-
-        double maxValue = Arrays.stream(transform).flatMapToDouble(arr -> Arrays.stream(arr).filter(p -> p.n > 0).mapToDouble(p -> p.val/p.n)).max().orElse(0);
-        int[][] normalized = Arrays.stream(transform).map(arr -> Arrays.stream(arr).mapToInt(val -> (int)(val.val/val.n*255/maxValue)).toArray()).toArray(int[][]::new);
-        Utils.get2DStream(size, size).forEach(p -> {
-            int norm = normalized[p.x][p.y];
-            int px = norm | norm<<8 | norm<<16;
-            output.setRGB(p.x, p.y, px);
-        });
         return output;
     }
 }
