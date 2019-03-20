@@ -5,6 +5,7 @@
  */
 package app.controller;
 
+import app.Application;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -20,6 +21,8 @@ import javafx.stage.Stage;
 public class SettingsController implements Initializable {
     
     private Stage settingStage;
+    private Application app;
+    
 
     @FXML
     private TextField alfa;
@@ -39,9 +42,15 @@ public class SettingsController implements Initializable {
         // TODO
     }    
     
+    public void setMain(Application app){
+        this.app = app;
+    }
+    
     
     public void ok(){
-        System.out.println("OK");
+        this.app.setAlfa(Double.valueOf(alfa.getText()));
+        this.app.setL(Double.valueOf(l.getText()));
+        this.app.setN(Integer.parseInt(n.getText()));
         closeWindow();
     }
     

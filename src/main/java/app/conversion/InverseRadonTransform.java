@@ -32,8 +32,8 @@ public class InverseRadonTransform {
         double dB = l/n;
         double h = 2*r*Math.sin(l/2)/n;
 
-        int sW = (int)(PI/dalpha);
-        int sH = n;
+        int sW = input.getWidth();
+        int sH = input.getHeight();
 
         Pixel[][] transform = new Pixel[size][size];
         for(int i = 0; i<size; ++i) {

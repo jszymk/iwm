@@ -85,30 +85,7 @@ public class MainViewConroller implements Initializable {
     }
 
     public void displaySettings() {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            URL url = Paths.get("src/main/java/app/view/Settings.fxml").toUri().toURL();
-            loader.setLocation(url);
-
-            AnchorPane settings = loader.load();
-
-            Stage settingsStage = new Stage();
-            settingsStage.setTitle("Settings");
-            settingsStage.initModality(Modality.WINDOW_MODAL);
-            settingsStage.initOwner(app.getPrimaryStage());
-
-            Scene scene = new Scene(settings);
-            settingsStage.setScene(scene);
-
-            SettingsController controller = loader.getController();
-
-            controller.setSettingStage(settingsStage);
-
-            settingsStage.showAndWait();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        app.showSettings();
 
     }
 }

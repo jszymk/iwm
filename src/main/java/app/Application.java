@@ -1,6 +1,7 @@
 package app;
 
 import app.controller.MainViewConroller;
+import app.controller.SettingsController;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -15,7 +16,9 @@ import app.conversion.RadonTransform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
@@ -29,6 +32,10 @@ public class Application extends javafx.application.Application {
     
     private Stage primaryStage;
     private BorderPane rootLayout;
+    
+    private double alfa;
+    private int n;
+    private double l;
 
     public static FXMLLoader loader = new FXMLLoader();
     
@@ -43,6 +50,8 @@ public class Application extends javafx.application.Application {
         this.primaryStage.setTitle("IWM");
 
         initRootLayout();
+        showSettings();
+        
         primaryStage.show();
 
     }
@@ -69,6 +78,34 @@ public class Application extends javafx.application.Application {
 
     }
 
+    public void showSettings(){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            URL url = Paths.get("src/main/java/app/view/Settings.fxml").toUri().toURL();
+            loader.setLocation(url);
+
+            AnchorPane settings = loader.load();
+
+            Stage settingsStage = new Stage();
+            settingsStage.setTitle("Settings");
+            settingsStage.initModality(Modality.WINDOW_MODAL);
+            settingsStage.initOwner(this.getPrimaryStage());
+
+            Scene scene = new Scene(settings);
+            settingsStage.setScene(scene);
+
+            SettingsController controller = loader.getController();
+            controller.setMain(this);
+            
+            controller.setSettingStage(settingsStage);
+
+            settingsStage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
   
 
     public File getInputImage() {
@@ -102,6 +139,32 @@ public class Application extends javafx.application.Application {
     public void setSinImage(Image sinImage) {
         this.sinImage = sinImage;
     }
+
+    public double getAlfa() {
+        return alfa;
+    }
+
+    public void setAlfa(double alfa) {
+        this.alfa = alfa;
+    }
+
+    public int getN() {
+        return n;
+    }
+
+    public void setN(int n) {
+        this.n = n;
+    }
+
+    public double getL() {
+        return l;
+    }
+
+    public void setL(double l) {
+        this.l = l;
+    }
+    
+    
     
     
 
