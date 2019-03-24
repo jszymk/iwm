@@ -45,10 +45,11 @@ public class InverseRadonTransform {
         List<BufferedImage> output = new ArrayList<>();
 
         for(int i = 0; i<iter; ++i) {
-            BufferedImage curIter = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);
             for(int x = 0; x < sW; ++x) {
+                BufferedImage curIter = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);
                 double alpha = x*dalpha;
                 double slope = Math.tan(alpha);
+                if(slope == 0.0) slope = 1e-10;
                 for(int y = 0; y < sH; ++y) {
                     double beta = (sH/2-y);
                     double intercept = r*Math.sin(beta*dB)/Math.cos(alpha) + size/2 - slope*size/2;
@@ -66,15 +67,15 @@ public class InverseRadonTransform {
                                 transform[p.x][p.y].val += avg;
                             });
                 }
+                double maxValue = Arrays.stream(transform).flatMapToDouble(arr -> Arrays.stream(arr).filter(p -> p.n > 0).mapToDouble(p -> p.val)).max().orElse(0);
+                int[][] normalized = Arrays.stream(transform).map(arr -> Arrays.stream(arr).mapToInt(val -> (int)(val.val*255/maxValue)).toArray()).toArray(int[][]::new);
+                Utils.get2DStream(size, size).forEach(p -> {
+                    int norm = normalized[p.x][p.y];
+                    int px = norm | norm<<8 | norm<<16;
+                    curIter.setRGB(p.x, p.y, px);
+                });
+                output.add(curIter);
             }
-            double maxValue = Arrays.stream(transform).flatMapToDouble(arr -> Arrays.stream(arr).filter(p -> p.n > 0).mapToDouble(p -> p.val)).max().orElse(0);
-            int[][] normalized = Arrays.stream(transform).map(arr -> Arrays.stream(arr).mapToInt(val -> (int)(val.val*255/maxValue)).toArray()).toArray(int[][]::new);
-            Utils.get2DStream(size, size).forEach(p -> {
-                int norm = normalized[p.x][p.y];
-                int px = norm | norm<<8 | norm<<16;
-                curIter.setRGB(p.x, p.y, px);
-            });
-            output.add(curIter);
         }
         return output;
     }

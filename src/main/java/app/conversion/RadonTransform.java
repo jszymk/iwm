@@ -37,6 +37,7 @@ public class RadonTransform {
         for(int x = 0; x < sW; ++x) {
             double alpha = x*dalpha;
             double slope = Math.tan(alpha);
+            if(slope == 0.0) slope = 1e-10;
             for(int y = 0; y < sH; ++y) {
                 double beta = (sH/2-y);
                 double intercept = r*Math.sin(beta*dB)/Math.cos(alpha) + input.getHeight()/2 - slope*input.getHeight()/2;

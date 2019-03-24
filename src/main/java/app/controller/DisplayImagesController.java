@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -86,7 +87,8 @@ public class DisplayImagesController implements Initializable {
                 sinograph.setImage(new Image(f.toURI().toURL().toExternalForm()));
 
                 progressCircle2.setVisible(true);
-                BufferedImage out = new InverseRadonTransform(400, 90, 0.5).transform(sin, 5).get(0);
+                List<BufferedImage> outList = new InverseRadonTransform(this.app.getN(), this.app.getL(), this.app.getAlfa()).transform(sin, 1);
+                BufferedImage out = outList.get(outList.size()-1);
 
                 f = new File("out.jpg");
                 ImageIO.write(out, "jpg", f);
