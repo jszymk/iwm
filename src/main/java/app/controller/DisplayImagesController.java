@@ -8,6 +8,7 @@ package app.controller;
 import app.Application;
 import app.conversion.InverseRadonTransform;
 import app.conversion.RadonTransform;
+import app.utils.MSE;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -75,6 +76,7 @@ public class DisplayImagesController implements Initializable {
     
     private List<BufferedImage> outList;
     private BufferedImage out;
+    private BufferedImage image;
 
 
     /**
@@ -107,7 +109,7 @@ public class DisplayImagesController implements Initializable {
         progressCircle1.setVisible(true);
         new Thread(() -> {
             try {
-                BufferedImage image = ImageIO.read(this.app.getInputImage());
+                this.image = ImageIO.read(this.app.getInputImage());
 
                 BufferedImage sin = new RadonTransform(this.app.getN(), this.app.getL(), this.app.getAlfa()).transform(image);
                 File f = new File("sin.jpg");
@@ -131,6 +133,7 @@ public class DisplayImagesController implements Initializable {
                 
                 slider.setMax(outList.size() - 1);
                 
+                new MSE().calculateMSE(image, out);
 
             } catch (IOException ex) {
                 Logger.getLogger(MainViewConroller.class.getName()).log(Level.SEVERE, null, ex);
@@ -146,6 +149,8 @@ public class DisplayImagesController implements Initializable {
                 
             }
         });
+        
+        
 
     }
     
