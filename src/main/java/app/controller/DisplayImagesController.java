@@ -17,12 +17,17 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javax.imageio.ImageIO;
 
 /**
@@ -48,6 +53,18 @@ public class DisplayImagesController implements Initializable {
 
     @FXML
     private ProgressIndicator progressCircle2;
+    
+    @FXML
+    private Slider slider;
+    
+    @FXML
+    private Label iteration;
+    
+    @FXML
+    private HBox iterationBox;
+    
+    private List<BufferedImage> outList;
+
 
     /**
      * Initializes the controller class.
@@ -57,6 +74,7 @@ public class DisplayImagesController implements Initializable {
         // TODO
         progressCircle1.setVisible(false);
         progressCircle2.setVisible(false);
+        iterationBox.setVisible(false);
     }
 
     public void setMain(Application app) {
@@ -87,7 +105,7 @@ public class DisplayImagesController implements Initializable {
                 sinograph.setImage(new Image(f.toURI().toURL().toExternalForm()));
 
                 progressCircle2.setVisible(true);
-                List<BufferedImage> outList = new InverseRadonTransform(this.app.getN(), this.app.getL(), this.app.getAlfa()).transform(sin, 1);
+                this.outList = new InverseRadonTransform(this.app.getN(), this.app.getL(), this.app.getAlfa()).transform(sin, 1);
                 BufferedImage out = outList.get(outList.size()-1);
 
                 f = new File("out.jpg");
@@ -96,11 +114,29 @@ public class DisplayImagesController implements Initializable {
                 outputImage.setImage(new Image(f.toURI().toURL().toExternalForm()));
 
                 progressCircle2.setVisible(false);
+                iterationBox.setVisible(true);
+                slider.setMax(outList.size() - 1);
+                
 
             } catch (IOException ex) {
                 Logger.getLogger(MainViewConroller.class.getName()).log(Level.SEVERE, null, ex);
             }
         }).start();
+        
+        
+        
+        
+        slider.valueProperty().addListener(new ChangeListener<Number>(){
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                iteration.setText(Integer.toString(newValue.intValue()));
+                outputImage.setImage(SwingFXUtils.toFXImage(outList.get(newValue.intValue()), null));
+                
+            }
+            
+            
+            
+        });
 
     }
 
