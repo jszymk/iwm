@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class ImageFilter {
 
     public static BufferedImage apply(BufferedImage image, double[][] mask) {
-        BufferedImage output = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
+        BufferedImage output = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
         double[][] conv = new double[image.getWidth()][image.getHeight()];
         for(int x = 1; x < image.getWidth()-1; ++x) {
             for(int y = 1; y < image.getHeight()-1; ++y) {

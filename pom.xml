@@ -35,6 +35,13 @@
             <artifactId>ij</artifactId>
             <version>1.45b</version>
         </dependency>
+        <dependency>
+            <groupId>org.dcm4che</groupId>
+            <artifactId>dcm4che-all</artifactId>
+            <version>3.3.8</version>
+            <type>pom</type>
+        </dependency>
+
     </dependencies>
 
     <repositories>

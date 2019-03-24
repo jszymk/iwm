@@ -13,10 +13,13 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import app.dicom.DicomExport;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
@@ -116,6 +119,8 @@ public class DisplayImagesController implements Initializable {
                 progressCircle2.setVisible(false);
                 iterationBox.setVisible(true);
                 slider.setMax(outList.size() - 1);
+
+                DicomExport.writeFile("dicom.dcm", out, "Jacek Przypadek", new Date(), "xD");
                 
 
             } catch (IOException ex) {
