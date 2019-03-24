@@ -20,7 +20,7 @@ public class MSE {
     private double greenSum = 0.0;
     private double blueSum = 0.0;
 
-    public void calculateMSE(BufferedImage in, BufferedImage out) {
+    public double calculateMSE(BufferedImage in, BufferedImage out) {
         
         //System.out.println(in.getHeight() + " " + in.getWidth());
         //System.out.println(out.getHeight() + " " + out.getWidth());
@@ -49,15 +49,16 @@ public class MSE {
                 double errBlue = blueOut - blueIn;
                 this.blueSum += errBlue * errBlue;
 
-                //double err = out.getRGB(x, y) - in.getRGB(x, y);
-                //sum+= err*err;
+                double err = out.getRGB(x, y) - in.getRGB(x, y);
+                sum+= err*err;
             }
         }
 
         this.sum = (this.redSum + this.greenSum + this.blueSum) / 3;
         this.mse = (double) this.sum / (in.getHeight() * in.getWidth());
         
-        System.out.println(this.mse);
+        //System.out.println(this.mse);
+        return this.mse;
     }
 
 }

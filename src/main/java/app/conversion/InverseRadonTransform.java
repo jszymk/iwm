@@ -17,8 +17,10 @@ public class InverseRadonTransform {
     private double dalpha = 0;
     private int n = 0;
     private double l = 0;
+    private BufferedImage original;
 
-    public InverseRadonTransform(int n, double l, double dalpha) {
+    public InverseRadonTransform(BufferedImage original, int n, double l, double dalpha) {
+        this.original = original;
         this.dalpha = dalpha*PI/180.0;
         this.n = n;
         this.l = l*PI/180.0;
@@ -26,7 +28,9 @@ public class InverseRadonTransform {
 
     public List<BufferedImage> transform(BufferedImage input, int iter) throws IOException {
 
-        int size = 512;
+        //System.out.println("IRT " + input.getWidth() + " " + input.getHeight());
+        //System.out.println("APP" + this.original.getWidth() + " " + this.original.getHeight());
+        int size = this.original.getWidth();
 
         double r = input.getHeight()*Math.sqrt(2)/2;
         double dB = l/n;

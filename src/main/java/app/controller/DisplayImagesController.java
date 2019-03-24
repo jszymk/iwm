@@ -119,7 +119,8 @@ public class DisplayImagesController implements Initializable {
                 sinograph.setImage(new Image(f.toURI().toURL().toExternalForm()));
 
                 progressCircle2.setVisible(true);
-                this.outList = new InverseRadonTransform(this.app.getN(), this.app.getL(), this.app.getAlfa()).transform(sin, 1);
+                
+                this.outList = new InverseRadonTransform(this.image,this.app.getN(), this.app.getL(), this.app.getAlfa()).transform(sin, 1);
                 this.out = outList.get(outList.size()-1);
 
                 f = new File("out.jpg");
@@ -133,7 +134,7 @@ public class DisplayImagesController implements Initializable {
                 
                 slider.setMax(outList.size() - 1);
                 
-                new MSE().calculateMSE(image, out);
+                System.out.println(new MSE().calculateMSE(image, out));
 
             } catch (IOException ex) {
                 Logger.getLogger(MainViewConroller.class.getName()).log(Level.SEVERE, null, ex);
