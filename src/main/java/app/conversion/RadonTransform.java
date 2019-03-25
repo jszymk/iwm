@@ -1,9 +1,11 @@
 package app.conversion;
 
 import app.bresenham.Bresenham;
+import app.filter.ImageFilter;
 import app.utils.Utils;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -63,6 +65,7 @@ public class RadonTransform {
             int px = norm | norm<<8 | norm<<16;
             output.setRGB(p.x, p.y, px);
         });
-        return output;
+        double[] mask = {1, -3, 7, -3, 1};
+        return ImageFilter.apply(output, mask);
     }
 }

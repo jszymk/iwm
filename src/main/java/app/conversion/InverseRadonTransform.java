@@ -30,7 +30,7 @@ public class InverseRadonTransform {
 
         //System.out.println("IRT " + input.getWidth() + " " + input.getHeight());
         //System.out.println("APP" + this.original.getWidth() + " " + this.original.getHeight());
-        int size = this.original.getWidth();
+        int size = 512;
 
         double r = input.getHeight()*Math.sqrt(2)/2;
         double dB = l/n;

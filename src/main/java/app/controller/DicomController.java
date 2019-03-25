@@ -74,7 +74,7 @@ public class DicomController implements Initializable {
     
     public void save() throws IOException{
         
-        new DicomExport().writeFile("dicom", this.out, firstName.getText() + " " +lastName.getText(), Date.from(date.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()), comment.getText());
+        new DicomExport().writeFile("dicom.dcm", this.out, firstName.getText() + " " +lastName.getText(), Date.from(date.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()), comment.getText());
         
         close();
     }

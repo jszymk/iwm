@@ -134,7 +134,7 @@ public class DisplayImagesController implements Initializable {
                 
                 slider.setMax(outList.size() - 1);
                 
-                System.out.println(new MSE().calculateMSE(image, out));
+                //System.out.println(new MSE().calculateMSE(image, out));
 
             } catch (IOException ex) {
                 Logger.getLogger(MainViewConroller.class.getName()).log(Level.SEVERE, null, ex);
